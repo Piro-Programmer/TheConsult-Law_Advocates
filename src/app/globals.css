@@ -45,6 +45,28 @@ body {
   }
 }
 
+/* Hero media zoom-out, matching Advocacy's appear animation: the banner
+   starts at scale(1.1) and settles to 1. */
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero-zoom {
+  animation: hero-zoom 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-zoom {
+    animation: none;
+    transform: none;
+  }
+}
+
 /* Sectors marquee */
 @keyframes marquee {
   from {

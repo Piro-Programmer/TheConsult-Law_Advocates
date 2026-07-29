@@ -40,12 +40,12 @@ export default function Hero() {
         className="pointer-events-none absolute -left-40 top-0 h-[120vh] w-[80vw] rounded-full bg-white/[0.03] lg:w-[45vw]"
       />
 
-      {/* Media — full bleed below lg, right half from lg up.
-          Anchored to the viewport midpoint so it can never overlap the copy,
-          which is sized on the same axis below. */}
-      <div className="absolute inset-0 lg:left-1/2">
+      {/* Media — full bleed below lg, 51% of the viewport from lg up, matching
+          the template's `sizes` (calc(100vw * 0.51) above 992px). Anchored on
+          the same axis as the copy below so the two can never overlap. */}
+      <div className="absolute inset-0 lg:left-[49%]">
         <video
-          className="h-full w-full scale-105 object-cover"
+          className="hero-zoom h-full w-full object-cover"
           src={hero.video}
           autoPlay
           muted
@@ -67,7 +67,7 @@ export default function Hero() {
       {/* Copy — left half of the viewport from lg up. The max()/calc keeps its
           left edge aligned to the 1280px container gutter on wide screens
           while never dropping below the normal page padding. */}
-      <div className="relative flex min-h-[92vh] items-center px-5 py-32 md:px-10 lg:w-1/2 lg:pl-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] lg:pr-12">
+      <div className="relative flex min-h-[92vh] items-center px-5 py-32 md:px-10 lg:w-[49%] lg:pl-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] lg:pr-12">
         <div className="w-full">
           <div className="flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white">
