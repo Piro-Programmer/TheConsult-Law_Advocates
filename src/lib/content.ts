@@ -67,7 +67,10 @@ export const hero = {
   body: "The Consult Law advises on intellectual property, technology law, dispute resolution, and corporate matters — for founders filing their first patent and enterprises managing a decade of litigation alike.",
   primaryCta: { label: "Book Consultation", href: "/book-consultation" },
   secondaryCta: { label: "Explore our services", href: "/services" },
-  video: "/video/hero.mp4",
+  /* Advocacy's hero banner (1932x2415). Its two per-breakpoint crops are
+     applied as object-position in the component. From the template's bundled
+     photography — see README. */
+  image: "/images/stock/uYK7LEfTSMXgq76tSSgRQqLNHw.jpg",
 } as const;
 
 export const aboutIntro = {

@@ -77,7 +77,7 @@ The homepage follows Advocacy's spine, with Consult's sections mapped onto it:
 
 | # | Advocacy slot | Consult section | Tone |
 |---|---|---|---|
-| 1 | Hero | Hero (video) | dark |
+| 1 | Hero | Hero (split: copy left, banner photo right) | dark |
 | 2 | About | About | white |
 | 3 | Services | Industries | cream |
 | 4 | Values | How We Work | dark |
@@ -105,16 +105,17 @@ Route Handler if that changes.
 
 ## Photography
 
-Consult's own assets cover the logo, two advisor portraits, `how-we-work`,
-`legal-expertise`, and `hero.mp4`. Advocacy's design is photo-driven — its
-homepage carries 19 images — so six more were taken from the Advocacy
-template's bundled photography and live under `public/images/stock/`:
+Consult's own assets cover the logo, two advisor portraits, `how-we-work` and
+`legal-expertise`. Advocacy's design is photo-driven — its homepage carries 19
+images — so seven more come from the Advocacy template's bundled photography
+and live under `public/images/stock/`:
 
 | Slot | File |
 |---|---|
 | Industry card 01–04 | `LM45Wf…`, `n961Na…`, `PBDQir…`, `chIcsMf…` |
 | Advisors banner | `YkDSIBK…` |
 | Closing CTA background | `4BDvYTH2…` |
+| Hero banner | `uYK7LEfT…` |
 
 **These are the Advocacy template's stock images, not The Consult Law's.**
 Confirm the fourtwelve licence permits their use on this site, and replace them
@@ -178,4 +179,6 @@ changes a live URL, so it needs a redirect and is your call.
 ## Source
 
 Content was captured from the live deployment page by page, plus a partial
-local mirror. Images and `hero.mp4` came from the live site.
+local mirror. Consult's own images came from the live site; the hero video it
+originally shipped with was dropped in favour of Advocacy's banner photo and
+is recoverable from git history.

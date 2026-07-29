@@ -1,12 +1,13 @@
+import Image from "next/image";
 import Button from "./Button";
 import { hero, industries } from "@/lib/content";
 
 /**
- * Advocacy's split hero: solid panel on the left carrying the copy, media
- * bleeding off the right edge, and the pillar list overlaid on that media.
- * Consult's video takes the place of Advocacy's still.
+ * Advocacy's split hero: solid panel on the left carrying the copy, the
+ * banner photo bleeding off the right edge, and the pillar list overlaid on
+ * that photo.
  *
- * Below lg there is no room to split, so the video becomes a full-bleed
+ * Below lg there is no room to split, so the photo becomes a full-bleed
  * background under a wash and the pillars sit beneath the copy.
  */
 function Pillars({ overlay = false }: { overlay?: boolean }) {
@@ -44,14 +45,14 @@ export default function Hero() {
           the template's `sizes` (calc(100vw * 0.51) above 992px). Anchored on
           the same axis as the copy below so the two can never overlap. */}
       <div className="absolute inset-0 lg:left-[49%]">
-        <video
-          className="hero-zoom h-full w-full object-cover"
-          src={hero.video}
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden="true"
+        {/* object-position values are the template's two per-breakpoint crops */}
+        <Image
+          src={hero.image}
+          alt=""
+          fill
+          priority
+          sizes="(min-width: 992px) 51vw, 100vw"
+          className="hero-zoom object-cover object-[0%_17.3%] lg:object-[2.3%_30.5%]"
         />
         {/* Wash: heavy on small screens where copy sits over the video,
             a soft left-edge blend once the layout splits */}
