@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Design tokens carried over from the Advocacy template */
+  --color-brand: #16322c;
+  --color-ink: #0c0603;
+  --color-ink-deep: #0b0b0b;
+  --color-grey: #8e8e8e;
+  --color-cream: #f6f4f0;
+
+  /* Declared in rem to match Tailwind's built-in scale. Mixing px overrides
+     with its rem defaults corrupts the media-query sort order and lets sm:
+     win over lg: at wide viewports. Keep these in rem. */
+  --breakpoint-md: 48rem; /* 768px */
+  --breakpoint-lg: 62rem; /* 992px */
+  --breakpoint-xl: 80rem; /* 1280px */
+
+  --font-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container-base {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 48rem) {
+  .container-base {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Sectors marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
 }

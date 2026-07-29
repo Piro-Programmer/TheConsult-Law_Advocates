@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Consult Law — Next.js
 
-## Getting Started
+The Consult Law's site rebuilt on the **Advocacy** template's design language.
+Content is Consult's, verbatim. Only the presentation changed.
 
-First, run the development server:
+## Stack
+
+- Next.js 16.2 (App Router, Turbopack) · React 19
+- TypeScript · Tailwind CSS v4 (CSS-first config in `src/app/globals.css`)
+- `motion` for scroll reveals, tabs, accordion, wizard transitions
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> **Don't run `next dev` over a production `.next`.** Turbopack dev and
+> `next build` share that directory and the dev route manifest gets clobbered —
+> every route 404s while the build still succeeds. If that happens,
+> `rm -rf .next` and restart.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Pages — all 21 built
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Route | Notes |
+|---|---|
+| `/` | 10 sections: Hero (video) · About · Industries · Sectors marquee · How We Work · Advisors · Legal Expertise · Blogs · FAQ · Book a Consultation |
+| `/about` | Hero · Legal Expertise · How We Work · CTA |
+| `/services` | Numbered service list · "Every service, one click away" · How We Work · FAQ · CTA |
+| `/practice-areas` | Four practice cards with sub-tags |
+| `/practice-areas/[slug]` | 4 pages — numbered topic breakdown + "Other practices" |
+| `/people` | Advisor grid |
+| `/people/[slug]` | 2 profiles — split hero, pull-quote, bio, grouped lists |
+| `/blogs` | Category chips · post grid · newsletter |
+| `/blogs/[slug]` | 3 articles — structured body, author card, newsletter |
+| `/contact` | Contact details + form |
+| `/book-consultation` | Three-step intake wizard |
+| `/disclaimer` `/privacy-policy` `/terms-and-conditions` `/cookie-policy` | Shared long-form template |
 
-## Learn More
+Plus generated `/sitemap.xml` (21 URLs) and `/robots.txt`.
 
-To learn more about Next.js, take a look at the following resources:
+## Content layer
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`src/lib/` is the seam for a real CMS — swap these modules and the components
+don't change.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Module | Holds |
+|---|---|
+| `content.ts` | Site chrome, homepage sections, contact details, FAQ |
+| `practice-areas.ts` | 4 areas with their numbered topics |
+| `people.ts` | 2 advisor profiles |
+| `posts.ts` | 3 articles as structured blocks |
+| `legal.ts` | 4 legal pages |
 
-## Deploy on Vercel
+## Design system
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Token | Value | Use |
+|---|---|---|
+| `brand` | `#16322c` | primary green |
+| `ink` | `#0c0603` | body text |
+| `ink-deep` | `#0b0b0b` | footer |
+| `grey` | `#8e8e8e` | secondary text |
+| `cream` | `#f6f4f0` | alternating section background |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The defining move is the **alternating section rhythm** — green → white → cream
+→ green, never two of the same in a row. `LegalExpertise` takes a
+`variant="dark" | "light"` prop so it keeps that rhythm wherever it's reused.
+
+Breakpoints (768 / 992 / 1280) are declared in **rem**. Tailwind v4 sorts media
+queries to build the cascade; mixing `px` overrides with its `rem` defaults
+corrupts that order and lets `sm:` beat `lg:` at wide viewports.
+
+## Forms send mail, not POSTs
+
+The contact form, consultation wizard, and newsletter all compose a `mailto:`.
+That's deliberate — the live site's Privacy Policy states submissions are sent
+through the visitor's own email client and never stored on a server. Swap in a
+Route Handler if that changes.
+
+## Image frames follow the source assets
+
+| Asset | Native size | Frame |
+|---|---|---|
+| `team/ryan-singh.png` | 398 × 390 | `aspect-square` |
+| `team/abhijeet-singh-chauhan.png` | 399 × 390 | `aspect-square` |
+| `how-we-work.png` | 610 × 712 | `aspect-6/7` |
+| `legal-expertise.png` | 646 × 754 | `aspect-6/7` |
+
+Advocacy's 3:4 and 4:3 frames cropped these badly. `6/7` is their exact native
+ratio. Higher-resolution originals would still help — at ~400px the headshots
+are soft on retina in a design built around large imagery.
+
+## Recovered from the live client bundle
+
+Two things the live site never server-renders were pulled out of its shipped
+JavaScript rather than guessed:
+
+- **All five FAQ answers.** Only the first is in the SSR HTML; the other four
+  mount on expand. They were found as `question:"…",answer:"…"` pairs in a
+  chunk. This build reproduces the same behaviour — question list in SSR,
+  answers hydrated — so only the default-open answer appears in view-source.
+- **The real statistics: 50+ clients, 10+ years, 4 industries.** The page
+  server-renders `0` because they're count-up targets; the values live in the
+  RSC payload as `{"value":50,"suffix":"+"}`. `CountUp` animates them on scroll
+  and respects `prefers-reduced-motion`.
+
+## Outstanding
+
+- **Wizard steps 2 and 3 are reconstructed.** Step 1's question and options come
+  from the live HTML; the later steps only render after interaction, so those
+  are a sensible intake flow rather than a copy of theirs.
+- **Blog category filtering is display-only** — the chips render but don't
+  filter yet.
+- **Newsletter posts to `mailto:`** pending the content-platform endpoint.
+- `metadataBase`, `sitemap.ts`, and `robots.ts` point at
+  `theconsult.vercel.app` — update for the production domain.
+
+## Source
+
+Content was captured from the live deployment page by page, plus a partial
+local mirror. Images and `hero.mp4` came from the live site.
