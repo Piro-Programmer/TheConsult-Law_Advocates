@@ -9,8 +9,21 @@ import { authorBio, getPost, posts } from "@/lib/posts";
 
 type Params = { params: Promise<{ slug: string }> };
 
+/**
+ * Prerendering writes one file per slug, so an over-long slug produces a
+ * filename that Vercel's build-output handler rejects (the M&A post's slug is
+ * 244 chars — a 249-char .html file, just under the 255 POSIX limit, which is
+ * why local builds pass and the deploy fails).
+ *
+ * Slugs above this length are left out of generateStaticParams and render on
+ * demand instead. The URL is unchanged; only the build-time output differs.
+ */
+const MAX_PRERENDER_SLUG = 200;
+
 export function generateStaticParams() {
-  return posts.map((p) => ({ slug: p.slug }));
+  return posts
+    .filter((p) => p.slug.length <= MAX_PRERENDER_SLUG)
+    .map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {

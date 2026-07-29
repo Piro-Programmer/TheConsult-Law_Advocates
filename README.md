@@ -102,6 +102,22 @@ JavaScript rather than guessed:
   RSC payload as `{"value":50,"suffix":"+"}`. `CountUp` animates them on scroll
   and respects `prefers-reduced-motion`.
 
+## The M&A post's slug breaks prerendering
+
+That post's slug is **244 characters** — its opening paragraph slugified rather
+than its title. Prerendering writes one file per slug, giving a 249-char
+`.html`. That sits just under the 255-char POSIX limit, so `next build` passes
+locally, but Vercel's build-output handler rejects it and the deploy fails at
+`onBuildComplete`.
+
+`generateStaticParams` in `src/app/blogs/[slug]/page.tsx` therefore skips slugs
+over `MAX_PRERENDER_SLUG` (200). Those render on demand instead — the URL is
+unchanged, only the build-time output differs.
+
+**The real fix is upstream:** shorten that slug to something like
+`legal-side-of-mergers-and-acquisitions-what-every-ceo-must-know`. Doing so
+changes a live URL, so it needs a redirect and is your call.
+
 ## Outstanding
 
 - **Wizard steps 2 and 3 are reconstructed.** Step 1's question and options come
