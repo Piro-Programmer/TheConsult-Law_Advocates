@@ -22,7 +22,7 @@ npm run dev
 
 | Route | Notes |
 |---|---|
-| `/` | 10 sections: Hero (video) · About · Industries · Sectors marquee · How We Work · Advisors · Legal Expertise · Blogs · FAQ · Book a Consultation |
+| `/` | Follows Advocacy's homepage spine — see below |
 | `/about` | Hero · Legal Expertise · How We Work · CTA |
 | `/services` | Numbered service list · "Every service, one click away" · How We Work · FAQ · CTA |
 | `/practice-areas` | Four practice cards with sub-tags |
@@ -65,9 +65,32 @@ usages across every dark section, button, chip, and accent. It started as the
 Advocacy template's deep green `#16322c`; changing that one line to black
 recoloured the whole site.
 
-The defining move is the **alternating section rhythm** — green → white → cream
-→ green, never two of the same in a row. `LegalExpertise` takes a
-`variant="dark" | "light"` prop so it keeps that rhythm wherever it's reused.
+The defining move is the **alternating section rhythm** — a strict
+dark → white → cream cycle, never two of the same in a row. `HowWeWork` and
+`LegalExpertise` are reused across pages, so both take a
+`tone="dark" | "white" | "cream"` prop to keep the cycle intact wherever they
+land.
+
+## Homepage structure
+
+The homepage follows Advocacy's spine, with Consult's sections mapped onto it:
+
+| # | Advocacy slot | Consult section | Tone |
+|---|---|---|---|
+| 1 | Hero | Hero (video) | dark |
+| 2 | About | About | white |
+| 3 | Services | Industries | cream |
+| 4 | Values | How We Work | dark |
+| 5 | Stats | Legal Expertise | white |
+| 6 | Team | Advisors | cream |
+| 7 | — | Sectors marquee | dark |
+| 8 | — | Blogs | white |
+| 9 | — | FAQ | cream |
+| 10 | CTA | Book a Consultation | dark |
+
+Rows 7–9 have no Advocacy counterpart and are carried after Advisors rather
+than dropped, so no Consult content is lost. Tones continue Advocacy's
+three-step cycle across all ten sections.
 
 Breakpoints (768 / 992 / 1280) are declared in **rem**. Tailwind v4 sorts media
 queries to build the cascade; mixing `px` overrides with its `rem` defaults

@@ -4,26 +4,24 @@ import Reveal from "./Reveal";
 import SectionLabel from "./SectionLabel";
 import { legalExpertise } from "@/lib/content";
 
+type Tone = "dark" | "white" | "cream";
+
 /**
- * Reused on the homepage (dark) and /about (light) — the `variant` keeps the
- * alternating section rhythm intact on both pages.
+ * Reused on the homepage and /about — `tone` keeps the alternating
+ * dark → light → cream section rhythm intact wherever it lands.
  */
-export default function LegalExpertise({
-  variant = "dark",
-}: {
-  variant?: "dark" | "light";
-}) {
-  const dark = variant === "dark";
+export default function LegalExpertise({ tone = "dark" }: { tone?: Tone }) {
+  const dark = tone === "dark";
 
   const t = {
-    section: dark ? "bg-brand" : "bg-cream",
+    section: dark ? "bg-brand" : tone === "cream" ? "bg-cream" : "bg-white",
     heading: dark ? "text-white" : "text-ink",
     body: dark ? "text-white/70" : "text-grey",
     value: dark ? "text-white" : "text-brand",
     statLabel: dark ? "text-white/50" : "text-ink/50",
     statBody: dark ? "text-white/70" : "text-grey",
     divider: dark ? "border-white/10" : "border-ink/10",
-    imageBg: dark ? "bg-white/5" : "bg-white",
+    imageBg: dark ? "bg-white/5" : tone === "cream" ? "bg-white" : "bg-cream",
   };
 
   return (

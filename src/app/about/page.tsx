@@ -32,8 +32,9 @@ export default function About() {
         </div>
       </section>
 
-      <LegalExpertise variant="light" />
-      <HowWeWork />
+      {/* dark hero → cream → white → dark CTA */}
+      <LegalExpertise tone="cream" />
+      <HowWeWork tone="white" />
       <BookCta />
     </>
   );

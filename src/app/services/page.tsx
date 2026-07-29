@@ -109,7 +109,8 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <HowWeWork />
+      {/* dark hero → white → cream → dark → cream → dark */}
+      <HowWeWork tone="dark" />
       <Faq />
       <BookCta />
     </>
