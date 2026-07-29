@@ -1,77 +1,111 @@
 import Button from "./Button";
 import { hero, industries } from "@/lib/content";
 
+/**
+ * Advocacy's split hero: solid panel on the left carrying the copy, media
+ * bleeding off the right edge, and the pillar list overlaid on that media.
+ * Consult's video takes the place of Advocacy's still.
+ *
+ * Below lg there is no room to split, so the video becomes a full-bleed
+ * background under a wash and the pillars sit beneath the copy.
+ */
+function Pillars({ overlay = false }: { overlay?: boolean }) {
+  return (
+    <ul className={overlay ? "space-y-3" : "mt-12 space-y-2.5"}>
+      {industries.map((industry) => (
+        <li
+          key={industry.slug}
+          className="flex items-center gap-3 rounded-full border border-white/25 bg-black/20 px-6 py-3.5 backdrop-blur-sm"
+        >
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-white/70" />
+          <span
+            className={`font-display font-light text-white ${
+              overlay ? "text-lg xl:text-2xl" : "text-base"
+            }`}
+          >
+            {industry.title}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[92vh] items-end overflow-hidden bg-brand pt-32 pb-16">
-      <video
-        className="absolute inset-0 h-full w-full object-cover"
-        src={hero.video}
-        autoPlay
-        muted
-        loop
-        playsInline
+    <section className="relative min-h-[92vh] overflow-hidden bg-brand">
+      {/* Soft arc on the panel, echoing Advocacy's background shape */}
+      <div
         aria-hidden="true"
+        className="pointer-events-none absolute -left-40 top-0 h-[120vh] w-[80vw] rounded-full bg-white/[0.03] lg:w-[45vw]"
       />
-      {/* Green wash + bottom fade, matching the Advocacy hero treatment */}
-      <div className="absolute inset-0 bg-brand/70" />
-      <div className="absolute inset-0 bg-gradient-to-t from-brand via-brand/40 to-transparent" />
 
-      <div className="container-base relative">
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-              <path
-                d="M5 0 6.2 3.8 10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"
-                fill="currentColor"
-              />
-            </svg>
-            {hero.eyebrow}
-          </span>
-          <span className="rounded-full border border-white/20 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white/70">
-            {hero.location}
-          </span>
+      {/* Media — full bleed below lg, right half from lg up.
+          Anchored to the viewport midpoint so it can never overlap the copy,
+          which is sized on the same axis below. */}
+      <div className="absolute inset-0 lg:left-1/2">
+        <video
+          className="h-full w-full scale-105 object-cover"
+          src={hero.video}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+        />
+        {/* Wash: heavy on small screens where copy sits over the video,
+            a soft left-edge blend once the layout splits */}
+        <div className="absolute inset-0 bg-brand/70 lg:hidden" />
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-brand via-brand/30 to-transparent lg:block" />
+
+        {/* Pillars overlaid on the media, as in the template */}
+        <div className="absolute inset-x-8 bottom-16 hidden xl:bottom-24 lg:block">
+          <Pillars overlay />
         </div>
+      </div>
 
-        <h1 className="mt-7 max-w-4xl font-display text-5xl font-light leading-[1.05] tracking-tight text-white md:text-6xl lg:text-7xl">
-          {hero.heading}
-        </h1>
-
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-          {hero.body}
-        </p>
-
-        <div className="mt-9 flex flex-wrap gap-3">
-          <Button href={hero.primaryCta.href} variant="light">
-            {hero.primaryCta.label}
-          </Button>
-          <Button href={hero.secondaryCta.href} variant="ghostLight">
-            {hero.secondaryCta.label}
-          </Button>
-        </div>
-
-        {/* Advocacy's hero pillar strip, carrying Consult's four practices */}
-        <ul className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
-          {industries.map((industry) => (
-            <li
-              key={industry.slug}
-              className="flex items-center gap-3 bg-brand/60 px-6 py-5 backdrop-blur-sm"
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      {/* Copy — left half of the viewport from lg up. The max()/calc keeps its
+          left edge aligned to the 1280px container gutter on wide screens
+          while never dropping below the normal page padding. */}
+      <div className="relative flex min-h-[92vh] items-center px-5 py-32 md:px-10 lg:w-1/2 lg:pl-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] lg:pr-12">
+        <div className="w-full">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
                 <path
-                  d="m3 8.5 3.2 3.2L13 5"
-                  stroke="#fff"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  d="M5 0 6.2 3.8 10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"
+                  fill="currentColor"
                 />
               </svg>
-              <span className="text-sm font-medium text-white">
-                {industry.title}
-              </span>
-            </li>
-          ))}
-        </ul>
+              {hero.eyebrow}
+            </span>
+            <span className="rounded-full border border-white/20 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white/70">
+              {hero.location}
+            </span>
+          </div>
+
+          <h1 className="mt-7 font-display text-5xl font-light leading-[1.05] tracking-tight text-white md:text-6xl xl:text-7xl">
+            {hero.heading}
+          </h1>
+
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
+            {hero.body}
+          </p>
+
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Button href={hero.primaryCta.href} variant="light">
+              {hero.primaryCta.label}
+            </Button>
+            <Button href={hero.secondaryCta.href} variant="ghostLight">
+              {hero.secondaryCta.label}
+            </Button>
+          </div>
+
+          {/* Stacked beneath the copy until the layout splits */}
+          <div className="lg:hidden">
+            <Pillars />
+          </div>
+        </div>
       </div>
     </section>
   );
