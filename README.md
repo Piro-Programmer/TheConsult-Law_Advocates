@@ -54,16 +54,16 @@ don't change.
 
 | Token | Value | Use |
 |---|---|---|
-| `brand` | `#000000` | dark sections, buttons, accents |
+| `brand` | `#16322c` | dark sections, buttons, accents |
 | `ink` | `#0c0603` | body text |
 | `ink-deep` | `#0b0b0b` | footer |
 | `grey` | `#8e8e8e` | secondary text |
 | `cream` | `#f6f4f0` | alternating section background |
 
 `brand` is the single lever for the site's colour — it drives 87 utility
-usages across every dark section, button, chip, and accent. It started as the
-Advocacy template's deep green `#16322c`; changing that one line to black
-recoloured the whole site.
+usages across every dark section, button, chip, and accent. It was briefly
+black; it now matches the Advocacy template's deep green `#16322c`. Changing
+that one line recolours the entire site.
 
 The defining move is the **alternating section rhythm** — a strict
 dark → white → cream cycle, never two of the same in a row. `HowWeWork` and
@@ -116,6 +116,7 @@ and live under `public/images/stock/`:
 | Advisors banner | `YkDSIBK…` |
 | Closing CTA background | `4BDvYTH2…` |
 | Hero banner | `uYK7LEfT…` |
+| Hero background shape | `iHS2dO88…` |
 
 **These are the Advocacy template's stock images, not The Consult Law's.**
 Confirm the fourtwelve licence permits their use on this site, and replace them

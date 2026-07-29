@@ -35,10 +35,15 @@ function Pillars({ overlay = false }: { overlay?: boolean }) {
 export default function Hero() {
   return (
     <section className="relative min-h-[92vh] overflow-hidden bg-brand">
-      {/* Soft arc on the panel, echoing Advocacy's background shape */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-40 top-0 h-[120vh] w-[80vw] rounded-full bg-white/[0.03] lg:w-[45vw]"
+      {/* Advocacy's BG Image Wrapper — the real transparent overlay, behind
+          everything, replacing the hand-drawn arc that stood in for it */}
+      <Image
+        src={hero.backgroundShape}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="pointer-events-none object-cover"
       />
 
       {/* Media — full bleed below lg, 51% of the viewport from lg up, matching

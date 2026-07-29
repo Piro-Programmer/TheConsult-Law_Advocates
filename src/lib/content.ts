@@ -71,6 +71,9 @@ export const hero = {
      applied as object-position in the component. From the template's bundled
      photography — see README. */
   image: "/images/stock/uYK7LEfTSMXgq76tSSgRQqLNHw.jpg",
+  /* Advocacy's "BG Image Wrapper" — a transparent 1420x1610 overlay that sits
+     behind the whole hero, giving the panel its soft arc. */
+  backgroundShape: "/images/stock/iHS2dO88UwPR9MVEtgoa5JPI.webp",
 } as const;
 
 export const aboutIntro = {
