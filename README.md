@@ -54,11 +54,16 @@ don't change.
 
 | Token | Value | Use |
 |---|---|---|
-| `brand` | `#16322c` | primary green |
+| `brand` | `#000000` | dark sections, buttons, accents |
 | `ink` | `#0c0603` | body text |
 | `ink-deep` | `#0b0b0b` | footer |
 | `grey` | `#8e8e8e` | secondary text |
 | `cream` | `#f6f4f0` | alternating section background |
+
+`brand` is the single lever for the site's colour — it drives 87 utility
+usages across every dark section, button, chip, and accent. It started as the
+Advocacy template's deep green `#16322c`; changing that one line to black
+recoloured the whole site.
 
 The defining move is the **alternating section rhythm** — green → white → cream
 → green, never two of the same in a row. `LegalExpertise` takes a
