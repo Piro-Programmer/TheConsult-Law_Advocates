@@ -1,5 +1,5 @@
 import Button from "./Button";
-import { hero } from "@/lib/content";
+import { hero, industries } from "@/lib/content";
 
 export default function Hero() {
   return (
@@ -49,6 +49,29 @@ export default function Hero() {
             {hero.secondaryCta.label}
           </Button>
         </div>
+
+        {/* Advocacy's hero pillar strip, carrying Consult's four practices */}
+        <ul className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+          {industries.map((industry) => (
+            <li
+              key={industry.slug}
+              className="flex items-center gap-3 bg-brand/60 px-6 py-5 backdrop-blur-sm"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path
+                  d="m3 8.5 3.2 3.2L13 5"
+                  stroke="#fff"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span className="text-sm font-medium text-white">
+                {industry.title}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

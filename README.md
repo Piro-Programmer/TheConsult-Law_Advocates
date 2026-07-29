@@ -103,6 +103,24 @@ That's deliberate — the live site's Privacy Policy states submissions are sent
 through the visitor's own email client and never stored on a server. Swap in a
 Route Handler if that changes.
 
+## Photography
+
+Consult's own assets cover the logo, two advisor portraits, `how-we-work`,
+`legal-expertise`, and `hero.mp4`. Advocacy's design is photo-driven — its
+homepage carries 19 images — so six more were taken from the Advocacy
+template's bundled photography and live under `public/images/stock/`:
+
+| Slot | File |
+|---|---|
+| Industry card 01–04 | `LM45Wf…`, `n961Na…`, `PBDQir…`, `chIcsMf…` |
+| Advisors banner | `YkDSIBK…` |
+| Closing CTA background | `4BDvYTH2…` |
+
+**These are the Advocacy template's stock images, not The Consult Law's.**
+Confirm the fourtwelve licence permits their use on this site, and replace them
+with the firm's own photography when it's available — every one is a single
+path in `src/lib/content.ts`, so swapping is a one-line change per slot.
+
 ## Image frames follow the source assets
 
 | Asset | Native size | Frame |

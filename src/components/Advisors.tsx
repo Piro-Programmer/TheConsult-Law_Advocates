@@ -25,6 +25,19 @@ export default function Advisors() {
           </Reveal>
         </div>
 
+        {/* Advocacy's "Meet the team" banner image */}
+        <Reveal>
+          <div className="relative mt-14 aspect-21/9 overflow-hidden rounded-3xl bg-white">
+            <Image
+              src={advisorsSection.image}
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+        </Reveal>
+
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:max-w-3xl">
           {advisorsSection.people.map((person, i) => (
             <Reveal key={person.slug} delay={i * 0.1}>

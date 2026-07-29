@@ -80,6 +80,8 @@ export type Industry = {
   slug: string;
   description: string;
   tags: string[];
+  /** From the Advocacy template's bundled photography — see README. */
+  image: string;
 };
 
 export const industries: Industry[] = [
@@ -89,6 +91,7 @@ export const industries: Industry[] = [
     description:
       "Protecting patents, copyrights, designs, and trademarks with strategic, business-focused counsel.",
     tags: ["Patents", "Copyright", "Designs", "Trademarks"],
+    image: "/images/stock/LM45Wf7PSurC386bcvDhFYkh27E.jpg",
   },
   {
     title: "Dispute Resolution",
@@ -96,6 +99,7 @@ export const industries: Industry[] = [
     description:
       "Strategic representation in arbitration, litigation, and economic offences across Indian courts and tribunals.",
     tags: ["Arbitration", "Litigation", "Economic Offences"],
+    image: "/images/stock/n961Na8eh4CHMwT3xywOmrcwc.jpg",
   },
   {
     title: "Technology Law",
@@ -109,6 +113,7 @@ export const industries: Industry[] = [
       "E-commerce",
       "Data Protection and Privacy",
     ],
+    image: "/images/stock/PBDQircfSMVtw37dLDHUoMUsII.jpg",
   },
   {
     title: "Corporate",
@@ -122,6 +127,7 @@ export const industries: Industry[] = [
       "Legal Audit & Due Diligence",
       "Report & Policy Drafting",
     ],
+    image: "/images/stock/chIcsMfcbyW9FJYxZOiWETlAY.jpg",
   },
 ];
 
@@ -174,6 +180,8 @@ export const advisorsSection = {
   label: "Our advisors",
   heading: "Our Advisors.",
   body: "As a full-service law firm, we represent individuals, businesses, and institutions across a broad spectrum of legal areas with a focus on practical solutions and strategic results.",
+  /** From the Advocacy template's bundled photography — see README. */
+  image: "/images/stock/YkDSIBKiPqbDr6chHpWAtgiOQ7s.jpg",
   people: [
     {
       name: "Ryan Singh",
@@ -292,6 +300,8 @@ export const bookCta = {
   body: "Tell us what you're dealing with and we'll get back to you with clear next steps — no obligation, no jargon.",
   primaryCta: { label: "Book Consultation", href: "/book-consultation" },
   secondaryCta: { label: "WhatsApp us", href: "https://wa.me/9355776931" },
+  /** From the Advocacy template's bundled photography — see README. */
+  image: "/images/stock/4BDvYTH2rWiBZvU9dx8DQVTuc.jpg",
 } as const;
 
 export const footerIntro = {
