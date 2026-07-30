@@ -4,10 +4,22 @@ import Reveal from "./Reveal";
 import SectionLabel from "./SectionLabel";
 import { bookCta } from "@/lib/content";
 
-/** Advocacy's closing-CTA treatment: background photo under a heavy wash. */
-export default function BookCta() {
+/**
+ * Advocacy's closing-CTA treatment: background photo under a heavy wash.
+ *
+ * "ink" swaps the green wash for the homepage's near-black so the block reads
+ * as part of that page rather than an accent stripe; every other page keeps
+ * the brand wash.
+ */
+export default function BookCta({ tone = "brand" }: { tone?: "brand" | "ink" }) {
+  const ink = tone === "ink";
+
   return (
-    <section className="relative overflow-hidden bg-brand py-24 md:py-32">
+    <section
+      className={`relative overflow-hidden py-24 md:py-32 ${
+        ink ? "bg-ink-deep xl:py-[150px]" : "bg-brand"
+      }`}
+    >
       <Image
         src={bookCta.image}
         alt=""
@@ -15,9 +27,9 @@ export default function BookCta() {
         sizes="100vw"
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-brand/85" />
+      <div className={`absolute inset-0 ${ink ? "bg-ink-deep/85" : "bg-brand/85"}`} />
 
-      <div className="container-base relative">
+      <div className={`relative ${ink ? "container-wide" : "container-base"}`}>
         <Reveal className="mx-auto max-w-2xl text-center">
           <SectionLabel tone="light">{bookCta.label}</SectionLabel>
           <h2 className="mt-7 font-display text-4xl font-light leading-[1.1] tracking-tight text-white md:text-6xl">

@@ -45,6 +45,22 @@ body {
   }
 }
 
+/* Advocacy's own container: wider cap and heavier gutters than container-base.
+   Shared by the nav, the hero and every homepage section so their left edges
+   line up down the whole page. */
+.container-wide {
+  width: 100%;
+  max-width: 1570px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 80rem) {
+  .container-wide {
+    padding-inline: 5rem;
+  }
+}
+
 /* Hero media zoom-out, matching Advocacy's appear animation: the banner
    starts at scale(1.1) and settles to 1. */
 @keyframes hero-zoom {

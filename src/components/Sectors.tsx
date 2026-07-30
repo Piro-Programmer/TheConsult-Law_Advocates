@@ -1,19 +1,19 @@
-import SectionLabel from "./SectionLabel";
+import Eyebrow from "./Eyebrow";
 import { sectorsSection } from "@/lib/content";
 
 const SPEEDS = ["44s", "56s", "50s"];
 
 export default function Sectors() {
   return (
-    <section className="overflow-hidden bg-brand py-24 md:py-32">
-      <div className="container-base">
-        <SectionLabel tone="light">{sectorsSection.label}</SectionLabel>
-        <p className="mt-8 max-w-3xl text-base leading-relaxed text-white/70 md:text-lg">
+    <section className="overflow-hidden bg-ink-deep py-[100px] xl:py-[150px]">
+      <div className="container-wide flex flex-col gap-5">
+        <Eyebrow>{sectorsSection.label}</Eyebrow>
+        <p className="max-w-3xl font-display text-[16px] leading-[1.5] font-light tracking-[-0.54px] text-white/70 xl:text-[18px]">
           {sectorsSection.body}
         </p>
       </div>
 
-      <div className="mt-14 space-y-4">
+      <div className="mt-[70px] space-y-4">
         {sectorsSection.rows.map((row, i) => (
           <div key={i} className="relative flex overflow-hidden">
             <div
@@ -27,7 +27,7 @@ export default function Sectors() {
               {[...row, ...row, ...row, ...row, ...row, ...row].map((sector, j) => (
                 <span
                   key={`${sector}-${j}`}
-                  className="whitespace-nowrap rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm text-white/80"
+                  className="rounded-full border border-white/10 px-6 py-3 font-display text-[16px] leading-[1.2] font-light tracking-[-0.54px] whitespace-nowrap text-white xl:text-[18px]"
                 >
                   {sector}
                 </span>

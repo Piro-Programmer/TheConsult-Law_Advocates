@@ -1,90 +1,63 @@
 import Image from "next/image";
 import Link from "next/link";
-import Button from "./Button";
+import Eyebrow from "./Eyebrow";
 import Reveal from "./Reveal";
-import SectionLabel from "./SectionLabel";
 import { industries } from "@/lib/content";
 
-/** Advocacy's service-card treatment: photo with a number badge, text beneath. */
+/**
+ * Advocacy's service cards: the photograph fills the whole card behind a 60%
+ * black wash, with the number and title pinned to the top edge and the
+ * description and its CTA to the bottom.
+ *
+ * The template runs three cards at a fixed 452x600; we have four, so the cards
+ * keep that proportion but flex with the column instead of being fixed.
+ */
 export default function Industries() {
   return (
-    <section className="bg-cream py-24 md:py-32">
-      <div className="container-base">
-        <Reveal>
-          <SectionLabel>Industries</SectionLabel>
+    <section className="bg-ink-deep py-[100px] xl:py-[150px]">
+      <div className="container-wide flex flex-col gap-[70px]">
+        <Reveal className="flex flex-col gap-5">
+          <Eyebrow>Industries</Eyebrow>
+          <h2 className="max-w-3xl font-display text-[32px] leading-[1.2] font-light tracking-[-1.26px] text-white lg:text-[38px] xl:text-[42px]">
+            Comprehensive legal solutions across every practice.
+          </h2>
         </Reveal>
 
-        <div className="mt-7 flex flex-wrap items-end justify-between gap-6">
-          <Reveal>
-            <h2 className="max-w-2xl font-display text-3xl font-light leading-[1.15] tracking-tight text-ink md:text-5xl">
-              Comprehensive legal solutions across every practice.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <Button href="/practice-areas" variant="outline">
-              View all industries
-            </Button>
-          </Reveal>
-        </div>
-
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {industries.map((industry, i) => (
             <Reveal key={industry.slug} delay={(i % 4) * 0.08}>
               <Link
                 href={`/practice-areas/${industry.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white transition-shadow duration-300 hover:shadow-xl hover:shadow-black/5"
+                className="group relative flex aspect-[452/600] overflow-hidden"
               >
-                <div className="relative aspect-4/3 overflow-hidden">
-                  <Image
-                    src={industry.image}
-                    alt={industry.title}
-                    fill
-                    sizes="(min-width: 992px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <span className="absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1 text-xs font-medium text-brand">
-                    0{i + 1}
-                  </span>
-                </div>
+                <Image
+                  src={industry.image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                {/* Advocacy's "BG Color" wash — verbatim */}
+                <div className="absolute inset-0 bg-black/60 transition-colors duration-300 group-hover:bg-black/70" />
 
-                <div className="flex flex-1 flex-col p-7">
-                  <h3 className="font-display text-lg font-normal text-ink">
-                    {industry.title}
-                  </h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-grey">
-                    {industry.description}
-                  </p>
+                <div className="relative flex h-full w-full flex-col justify-between p-7 xl:p-10">
+                  <div className="flex flex-col gap-4 xl:gap-[30px]">
+                    <p className="font-display text-[16px] leading-[1.5] font-light tracking-[-0.54px] text-white xl:text-[18px]">
+                      0{i + 1}
+                    </p>
+                    <h3 className="font-display text-[24px] leading-[1.2] font-light tracking-[-0.9px] text-white xl:text-[30px]">
+                      {industry.title}
+                    </h3>
+                  </div>
 
-                  <ul className="mt-6 flex flex-wrap gap-1.5">
-                    {industry.tags.map((tag) => (
-                      <li
-                        key={tag}
-                        className="rounded-full border border-ink/10 px-3 py-1 text-[11px] text-ink/55"
-                      >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-brand">
-                    Learn more
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      aria-hidden="true"
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                    >
-                      <path
-                        d="M3 11 11 3M11 3H5M11 3v6"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
+                  <div className="flex flex-col items-start gap-6 xl:gap-10">
+                    <p className="font-display text-[15px] leading-[1.5] font-light tracking-[-0.54px] text-white xl:text-[18px]">
+                      {industry.description}
+                    </p>
+                    <span className="rounded-full bg-white px-5 py-2.5 text-[14px] leading-[1.2] font-normal tracking-[-0.42px] text-ink-deep uppercase">
+                      Learn more
+                    </span>
+                  </div>
                 </div>
               </Link>
             </Reveal>

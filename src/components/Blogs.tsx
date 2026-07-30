@@ -1,47 +1,44 @@
 import Link from "next/link";
 import Button from "./Button";
+import Eyebrow from "./Eyebrow";
 import Reveal from "./Reveal";
-import SectionLabel from "./SectionLabel";
 import { blogsSection } from "@/lib/content";
 
 export default function Blogs() {
   return (
-    <section className="bg-white py-24 md:py-32">
-      <div className="container-base">
-        <Reveal>
-          <SectionLabel>{blogsSection.label}</SectionLabel>
-        </Reveal>
-
-        <div className="mt-7 flex flex-wrap items-end justify-between gap-6">
-          <Reveal>
-            <h2 className="max-w-2xl font-display text-3xl font-light leading-[1.15] tracking-tight text-ink md:text-5xl">
+    <section className="bg-ink-deep py-[100px] xl:py-[150px]">
+      <div className="container-wide flex flex-col gap-[70px]">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <Reveal className="flex flex-col gap-5">
+            <Eyebrow>{blogsSection.label}</Eyebrow>
+            <h2 className="max-w-3xl font-display text-[32px] leading-[1.2] font-light tracking-[-1.26px] text-white lg:text-[38px] xl:text-[42px]">
               {blogsSection.heading}
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <Button href={blogsSection.cta.href} variant="outline">
+            <Button href={blogsSection.cta.href} variant="light" size="sm">
               {blogsSection.cta.label}
             </Button>
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-3">
           {blogsSection.posts.map((post, i) => (
             <Reveal key={post.href} delay={i * 0.08}>
               <Link
                 href={post.href}
-                className="group flex h-full flex-col rounded-3xl border border-ink/10 p-8 transition-colors duration-300 hover:border-brand/30"
+                className="group flex h-full flex-col border border-white/10 p-7 transition-colors duration-300 hover:border-white/25 xl:p-10"
               >
-                <span className="self-start rounded-full bg-brand/5 px-3.5 py-1.5 text-xs text-brand">
+                <span className="self-start rounded-full border border-white/10 px-3.5 py-1.5 text-[13px] text-white/70">
                   {post.category}
                 </span>
-                <h3 className="mt-6 font-display text-lg font-normal leading-snug text-ink">
+                <h3 className="mt-7 font-display text-[22px] leading-[1.2] font-light tracking-[-0.9px] text-white xl:text-[24px]">
                   {post.title}
                 </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-grey">
+                <p className="mt-4 flex-1 font-display text-[15px] leading-[1.5] font-light tracking-[-0.54px] text-white/70">
                   {post.excerpt}
                 </p>
-                <p className="mt-7 text-xs text-grey">
+                <p className="mt-8 text-[13px] text-white/50">
                   By {post.author} · {post.date}
                 </p>
               </Link>
