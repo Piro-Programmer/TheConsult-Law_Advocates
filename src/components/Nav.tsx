@@ -14,7 +14,8 @@ import ServicesDropdown from "./ServicesDropdown";
  *
  * The template leaves the bar transparent at every scroll position, which only
  * works because it never scrolls over light content. Ours does, so the bar
- * fills with brand once you leave the hero.
+ * fills once you leave the hero — with the homepage's near-black rather than
+ * brand green, which read as a stripe against that page.
  */
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -38,7 +39,7 @@ export default function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 border-b border-white/10 transition-colors duration-300 ${
-        scrolled || open ? "bg-brand" : "bg-transparent"
+        scrolled || open ? "bg-ink-deep" : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex w-full max-w-[1570px] items-center justify-between px-5 py-5 xl:px-20">
@@ -94,7 +95,7 @@ export default function Nav() {
       </div>
 
       {open && (
-        <div className="border-t border-white/10 bg-brand lg:hidden">
+        <div className="border-t border-white/10 bg-ink-deep lg:hidden">
           <div className="mx-auto max-h-[calc(100vh-5.5rem)] w-full max-w-[1570px] overflow-y-auto px-5 py-6 xl:px-20">
             <div className="flex flex-col">
               {nav.map((item) =>
