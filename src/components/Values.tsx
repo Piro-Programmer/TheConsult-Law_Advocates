@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Eyebrow from "./Eyebrow";
+import GridLines from "./GridLines";
 import Reveal from "./Reveal";
 import { valuesSection } from "@/lib/content";
 
@@ -26,8 +27,12 @@ export default function Values() {
   const value = valuesSection.items[active];
 
   return (
-    <section className="bg-ink-deep py-[100px] xl:py-[150px]">
-      <div className="container-wide">
+    <section className="relative bg-ink-deep py-[100px] xl:py-[150px]">
+      {/* Paired with the statistics section's own ruling — the two meet where
+          the sections do, which is what makes the lines look continuous. */}
+      <GridLines />
+
+      <div className="relative z-1 container-wide">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:pt-[45px]">
           <Reveal className="w-full lg:max-w-[120px] lg:flex-1">
             <Eyebrow>{valuesSection.label}</Eyebrow>
