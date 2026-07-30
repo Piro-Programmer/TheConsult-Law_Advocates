@@ -3,8 +3,15 @@
 @theme {
   /* Design tokens carried over from the Advocacy template.
      `brand` drives every dark section, button, and accent — changing it here
-     recolours the whole site. */
-  --color-brand: #16322c;
+     recolours the whole site, which is exactly how the palette moved off green.
+
+     It was #16322c. The homepage had already gone near-black section by
+     section, which left the remaining green — interior page heroes, buttons,
+     accents, the disclaimer gate — looking stranded. Pointing brand at the same
+     near-black turns those over in one move and gives the black-and-white
+     scheme. Deliberately equal to --color-ink-deep: the two are separate names
+     for the same intent (brand accents, page canvas), not a mistake. */
+  --color-brand: #0b0b0b;
   --color-ink: #0c0603;
   --color-ink-deep: #0b0b0b;
   --color-grey: #8e8e8e;
