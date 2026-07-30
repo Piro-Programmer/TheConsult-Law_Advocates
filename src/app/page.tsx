@@ -1,7 +1,8 @@
 import Hero from "@/components/Hero";
 import AboutIntro from "@/components/AboutIntro";
 import Industries from "@/components/Industries";
-import HowWeWorkTabs from "@/components/HowWeWorkTabs";
+import Values from "@/components/Values";
+import HowWeWork from "@/components/HowWeWork";
 import LegalExpertise from "@/components/LegalExpertise";
 import Advisors from "@/components/Advisors";
 import Sectors from "@/components/Sectors";
@@ -18,8 +19,13 @@ import BookCta from "@/components/BookCta";
  * comes from spacing and photography instead of background changes. The
  * interior pages still alternate — this scheme is the homepage's alone.
  *
- * Consult's four extra sections (Sectors, Blogs, FAQ, closing CTA) have no
- * Advocacy counterpart; they follow the shared spine in the same language.
+ * Consult's extra sections (How we work, Sectors, Blogs, FAQ, closing CTA) have
+ * no Advocacy counterpart, so they follow that spine rather than interrupting
+ * it, in the same language.
+ *
+ * How we work keeps its list form here. It briefly used the Values panel, which
+ * became the wrong call once Values existed in its own right — two tabbed
+ * photo panels one after another read as a bug rather than a rhythm.
  */
 export default function Home() {
   return (
@@ -27,9 +33,10 @@ export default function Home() {
       <Hero />
       <AboutIntro />
       <Industries />
-      <HowWeWorkTabs />
+      <Values />
       <LegalExpertise tone="ink" />
       <Advisors />
+      <HowWeWork tone="ink" />
       <Sectors />
       <Blogs />
       <Faq tone="ink" />

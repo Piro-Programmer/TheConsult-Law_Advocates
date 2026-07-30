@@ -4,17 +4,27 @@ import Reveal from "./Reveal";
 import SectionLabel from "./SectionLabel";
 import { howWeWork } from "@/lib/content";
 
-type Tone = "white" | "cream" | "dark";
+type Tone = "white" | "cream" | "dark" | "ink";
 
 /**
  * Reused on the homepage, /about and /services. `tone` keeps the alternating
  * dark → light → cream section rhythm intact wherever it lands.
+ *
+ * "ink" is the homepage's near-black; it shares every treatment with "dark"
+ * apart from the section colour and the wider container.
  */
 export default function HowWeWork({ tone = "white" }: { tone?: Tone }) {
-  const dark = tone === "dark";
+  const dark = tone === "dark" || tone === "ink";
 
   const t = {
-    section: dark ? "bg-brand" : tone === "cream" ? "bg-cream" : "bg-white",
+    section:
+      tone === "ink"
+        ? "bg-ink-deep"
+        : dark
+          ? "bg-brand"
+          : tone === "cream"
+            ? "bg-cream"
+            : "bg-white",
     heading: dark ? "text-white" : "text-ink",
     stepTitle: dark ? "text-white" : "text-ink",
     body: dark ? "text-white/70" : "text-grey",
@@ -23,9 +33,12 @@ export default function HowWeWork({ tone = "white" }: { tone?: Tone }) {
     imageBg: dark ? "bg-white/5" : tone === "cream" ? "bg-white" : "bg-cream",
   };
 
+  const pad = tone === "ink" ? "py-[100px] xl:py-[150px]" : "py-24 md:py-32";
+  const container = tone === "ink" ? "container-wide" : "container-base";
+
   return (
-    <section className={`${t.section} py-24 md:py-32`}>
-      <div className="container-base">
+    <section className={`${t.section} ${pad}`}>
+      <div className={container}>
         <Reveal>
           <SectionLabel tone={dark ? "light" : "dark"}>
             {howWeWork.label}

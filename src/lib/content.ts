@@ -157,6 +157,37 @@ export const sectorsSection = {
   ],
 } as const;
 
+/**
+ * DRAFT COPY — needs the firm's sign-off before it is treated as settled.
+ *
+ * Unlike everything else in this file, these three descriptions are not taken
+ * from theconsult.vercel.app; the site has never carried a values section. Each
+ * one is paraphrased from a sentence the firm already publishes — the overlap
+ * argument from aboutIntro, the "direct rather than exploratory" line from
+ * aboutPage, the "clear next steps, no jargon" line from bookCta — so that
+ * nothing here claims anything the firm has not already said about itself.
+ */
+export const valuesSection = {
+  label: "Our values",
+  heading: "The principles behind how we take on a matter.",
+  /** From the Advocacy template's bundled photography — see README. */
+  image: "/images/stock/dCDZ4eTnXiqt0jb69U26oxlDy0.jpg",
+  items: [
+    {
+      title: "Integrity",
+      body: "Clients usually reach us once a problem is already underway, which is no time for a hedged answer. Our advice is direct rather than exploratory, including when the honest reading of a matter is not the one a client hoped for.",
+    },
+    {
+      title: "Transparency",
+      body: "You should be able to follow your own matter without a translator. We set out where things stand and what happens next in plain terms — clear next steps, no jargon, and no obligation to go further than you want to.",
+    },
+    {
+      title: "Collaboration",
+      body: "A single dispute can touch data protection, technology law, and intellectual property at once, so we built one team instead of six separate practices. Your matter draws on whoever it actually needs.",
+    },
+  ],
+} as const;
+
 export const howWeWork = {
   label: "How we work",
   heading: "Legal clarity built on strategy and trust.",
