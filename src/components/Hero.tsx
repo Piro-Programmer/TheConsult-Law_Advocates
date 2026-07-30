@@ -3,54 +3,40 @@ import Button from "./Button";
 import { hero, industries } from "@/lib/content";
 
 /**
- * Advocacy's split hero: solid panel on the left carrying the copy, the
- * banner photo bleeding off the right edge, and the pillar list overlaid on
- * that photo.
+ * Advocacy's split hero, rebuilt to the template's own geometry rather than by
+ * eye: a 49% brand panel carrying the decorative arc on the left, the banner
+ * photo filling the remaining 51% behind a 69deg wash, and both columns of
+ * copy sitting on the section's bottom edge — not vertically centred.
  *
- * Below lg there is no room to split, so the photo becomes a full-bleed
- * background under a wash and the pillars sit beneath the copy.
+ * Below lg the template stops splitting and stacks: the brand panel becomes a
+ * 480px band with the photo directly beneath it, and the copy centres over the
+ * seam.
  */
-function Pillars({ overlay = false }: { overlay?: boolean }) {
-  return (
-    <ul className={overlay ? "space-y-3" : "mt-12 space-y-2.5"}>
-      {industries.map((industry) => (
-        <li
-          key={industry.slug}
-          className="flex items-center gap-3 rounded-full border border-white/25 bg-black/20 px-6 py-3.5 backdrop-blur-sm"
-        >
-          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-white/70" />
-          <span
-            className={`font-display font-light text-white ${
-              overlay ? "text-lg xl:text-2xl" : "text-base"
-            }`}
-          >
-            {industry.title}
-          </span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 export default function Hero() {
   return (
-    <section className="relative min-h-[92vh] overflow-hidden bg-brand">
-      {/* Advocacy's BG Image Wrapper — the real transparent overlay, behind
-          everything, replacing the hand-drawn arc that stood in for it */}
-      <Image
-        src={hero.backgroundShape}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="pointer-events-none object-cover"
-      />
+    /* The top padding is ours, not the template's. Its headline is two lines,
+       so its bottom-aligned copy never grows tall enough to reach the fixed
+       nav; ours runs to four, and on a short viewport the section outgrows the
+       screen and slides the copy behind the header. This reserves the nav's
+       height and is inert whenever there is room to spare. */
+    <section className="relative flex min-h-[950px] items-end justify-center overflow-hidden pt-[100px] pb-5 lg:min-h-[760px] lg:pb-[50px] xl:min-h-screen xl:pb-[70px]">
+      {/* Brand panel — the template's "BG Image Wrapper". The arc lives inside
+          it, which is why it stops at the 49% seam instead of bleeding across
+          the whole section. */}
+      <div className="absolute top-0 left-0 h-[480px] w-full overflow-hidden bg-brand lg:h-full lg:w-[49%]">
+        <Image
+          src={hero.backgroundShape}
+          alt=""
+          fill
+          priority
+          sizes="(min-width: 992px) 49vw, 100vw"
+          className="pointer-events-none object-cover"
+        />
+      </div>
 
-      {/* Media — full bleed below lg, 51% of the viewport from lg up, matching
-          the template's `sizes` (calc(100vw * 0.51) above 992px). Anchored on
-          the same axis as the copy below so the two can never overlap. */}
-      <div className="absolute inset-0 lg:left-[49%]">
-        {/* object-position values are the template's two per-breakpoint crops */}
+      {/* Banner photo — the template's "Hero Banner Wrapper". Runs to the very
+          top so it passes behind the fixed nav, as it does on the original. */}
+      <div className="absolute top-[480px] left-0 h-[470px] w-full overflow-hidden lg:top-0 lg:right-0 lg:left-auto lg:h-full lg:w-[51%]">
         <Image
           src={hero.image}
           alt=""
@@ -59,59 +45,60 @@ export default function Hero() {
           sizes="(min-width: 992px) 51vw, 100vw"
           className="hero-zoom object-cover object-[0%_17.3%] lg:object-[2.3%_30.5%]"
         />
-        {/* Wash: heavy on small screens where copy sits over the video,
-            a soft left-edge blend once the layout splits */}
-        <div className="absolute inset-0 bg-brand/70 lg:hidden" />
-        <div className="absolute inset-0 hidden bg-gradient-to-r from-brand via-brand/30 to-transparent lg:block" />
-
-        {/* Pillars overlaid on the media, as in the template */}
-        <div className="absolute inset-x-8 bottom-16 hidden xl:bottom-24 lg:block">
-          <Pillars overlay />
-        </div>
+        {/* Advocacy's "BG Gradient" — verbatim from the template */}
+        <div className="absolute inset-0 bg-[linear-gradient(69deg,#0c0603_0%,rgba(51,51,51,0)_42%)]" />
       </div>
 
-      {/* Copy — left half of the viewport from lg up. The max()/calc keeps its
-          left edge aligned to the 1280px container gutter on wide screens
-          while never dropping below the normal page padding. */}
-      <div className="relative flex min-h-[92vh] items-center px-5 py-32 md:px-10 lg:w-[49%] lg:pl-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] lg:pr-12">
-        <div className="w-full">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white">
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                <path
-                  d="M5 0 6.2 3.8 10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z"
-                  fill="currentColor"
-                />
-              </svg>
-              {hero.eyebrow}
-            </span>
-            <span className="rounded-full border border-white/20 px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-white/70">
-              {hero.location}
-            </span>
+      {/* Base Container — bottom-aligned, 80px gutters, capped at 1570px */}
+      <div className="relative z-[2] mx-auto flex w-full max-w-[1570px] flex-col items-center gap-12 px-5 lg:flex-row lg:items-end lg:justify-between lg:gap-0 xl:px-20">
+        {/* Text Content Wrapper */}
+        <div className="flex w-full max-w-[550px] flex-col items-center gap-[30px] text-center lg:max-w-[470px] lg:items-start lg:gap-10 lg:text-left xl:max-w-[490px]">
+          <div className="flex w-full flex-col items-center gap-5 lg:items-start">
+            <h1 className="font-display text-[48px] leading-[1.1] font-light tracking-[-1.5px] text-white lg:text-[52px] xl:text-[70px]">
+              {hero.heading}
+            </h1>
+
+            <p className="max-w-[360px] font-display text-[18px] leading-[1.5] font-light tracking-[-0.54px] text-white/70">
+              {hero.body}
+            </p>
           </div>
 
-          <h1 className="mt-7 font-display text-5xl font-light leading-[1.05] tracking-tight text-white md:text-6xl xl:text-7xl">
-            {hero.heading}
-          </h1>
-
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
-            {hero.body}
-          </p>
-
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Button href={hero.primaryCta.href} variant="light">
+          <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
+            <Button href={hero.primaryCta.href} variant="light" size="sm">
               {hero.primaryCta.label}
             </Button>
-            <Button href={hero.secondaryCta.href} variant="ghostLight">
+            <Button href={hero.secondaryCta.href} variant="ghostLight" size="sm">
               {hero.secondaryCta.label}
             </Button>
           </div>
-
-          {/* Stacked beneath the copy until the layout splits */}
-          <div className="lg:hidden">
-            <Pillars />
-          </div>
         </div>
+
+        {/* Values Wrapper — pills hug their own text and share a left edge */}
+        <ul className="flex w-full flex-col items-center gap-2.5 lg:w-[49%] lg:items-start xl:w-[46%]">
+          {industries.map((industry) => (
+            <li
+              key={industry.slug}
+              className="flex w-fit max-w-full items-center gap-[5px] rounded-full border border-white/10 px-5 py-2.5"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 15 15"
+                fill="none"
+                aria-hidden="true"
+                className="shrink-0 text-white/40"
+              >
+                <path
+                  d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0 2.375 2.375 0 0 1 4.75 0Z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span className="font-display text-[18px] leading-[1.2] font-light tracking-[-0.9px] text-white lg:text-[24px] xl:text-[30px]">
+                {industry.title}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

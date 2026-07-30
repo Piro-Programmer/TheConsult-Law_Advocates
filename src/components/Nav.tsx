@@ -5,6 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { nav, site } from "@/lib/content";
 
+/**
+ * Advocacy's header: a fixed, transparent bar with a hairline underline that
+ * the hero photo runs behind. Its gutters and gaps match the hero's container
+ * so the logo lines up with the headline below it.
+ *
+ * The template leaves the bar transparent at every scroll position, which only
+ * works because it never scrolls over light content. Ours does, so the bar
+ * fills with brand once you leave the hero.
+ */
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -25,11 +34,11 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${
-        scrolled || open ? "bg-brand shadow-lg shadow-black/5" : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-40 border-b border-white/10 transition-colors duration-300 ${
+        scrolled || open ? "bg-brand" : "bg-transparent"
       }`}
     >
-      <div className="container-base flex h-20 items-center justify-between">
+      <div className="mx-auto flex w-full max-w-[1570px] items-center justify-between px-5 py-5 xl:px-20">
         <Link href="/" onClick={() => setOpen(false)} className="relative z-10">
           <Image
             src={site.logo}
@@ -41,23 +50,25 @@ export default function Nav() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm text-white/80 transition-colors hover:text-white"
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div className="hidden items-center gap-[55px] lg:flex">
+          <nav className="flex items-center gap-5">
+            {nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-[14px] leading-[1.2] font-normal tracking-[-0.54px] text-white uppercase transition-colors duration-[400ms] hover:text-white/70"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
           <Link
             href="/book-consultation"
-            className="rounded-full bg-white px-6 py-3 text-sm font-medium text-brand transition-colors hover:bg-white/90"
+            className="rounded-full bg-white px-5 py-2.5 text-[14px] leading-[1.2] font-normal tracking-[-0.42px] text-ink-deep uppercase transition-colors duration-[400ms] hover:bg-white/90"
           >
             Book Consultation
           </Link>
-        </nav>
+        </div>
 
         <button
           onClick={() => setOpen((v) => !v)}
@@ -77,14 +88,14 @@ export default function Nav() {
 
       {open && (
         <div className="border-t border-white/10 bg-brand lg:hidden">
-          <div className="container-base max-h-[calc(100vh-5rem)] overflow-y-auto py-6">
+          <div className="mx-auto max-h-[calc(100vh-5.5rem)] w-full max-w-[1570px] overflow-y-auto px-5 py-6 xl:px-20">
             <div className="flex flex-col">
               {nav.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="border-b border-white/10 py-4 text-base text-white/85 transition-colors hover:text-white"
+                  className="border-b border-white/10 py-4 text-[14px] tracking-[-0.54px] text-white/85 uppercase transition-colors hover:text-white"
                 >
                   {item.label}
                 </Link>
@@ -93,7 +104,7 @@ export default function Nav() {
             <Link
               href="/book-consultation"
               onClick={() => setOpen(false)}
-              className="mt-6 block rounded-full bg-white px-6 py-3.5 text-center text-sm font-medium text-brand"
+              className="mt-6 block rounded-full bg-white px-5 py-3 text-center text-[14px] tracking-[-0.42px] text-ink-deep uppercase"
             >
               Book Consultation
             </Link>
