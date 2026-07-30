@@ -4,6 +4,8 @@ type Props = {
   href: string;
   children: React.ReactNode;
   variant?: "solid" | "outline" | "light" | "ghostLight";
+  /** "sm" is the Advocacy template's own CTA scale, used in the hero. */
+  size?: "md" | "sm";
   external?: boolean;
   className?: string;
 };
@@ -15,14 +17,23 @@ const styles = {
   ghostLight: "border border-white/25 text-white hover:bg-white hover:text-brand",
 };
 
+/* Kept out of the base string so the two never both emit a padding or
+   font-size utility — class order in the attribute would not decide the
+   winner, CSS source order would. */
+const sizes = {
+  md: "px-7 py-3.5 text-sm font-medium",
+  sm: "px-5 py-2.5 text-[14px] leading-[1.2] font-normal uppercase tracking-[-0.42px]",
+};
+
 export default function Button({
   href,
   children,
   variant = "solid",
+  size = "md",
   external = false,
   className = "",
 }: Props) {
-  const cls = `inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-colors duration-200 ${styles[variant]} ${className}`;
+  const cls = `inline-flex items-center justify-center gap-2 rounded-full transition-colors duration-200 ${sizes[size]} ${styles[variant]} ${className}`;
   const inner = (
     <>
       {children}
