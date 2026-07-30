@@ -20,19 +20,11 @@ export default function Hero() {
        screen and slides the copy behind the header. This reserves the nav's
        height and is inert whenever there is room to spare. */
     <section className="relative flex min-h-[950px] items-end justify-center overflow-hidden pt-[100px] pb-5 lg:min-h-[760px] lg:pb-[50px] xl:min-h-screen xl:pb-[70px]">
-      {/* Brand panel — the template's "BG Image Wrapper". The arc lives inside
-          it, which is why it stops at the 49% seam instead of bleeding across
-          the whole section. */}
-      <div className="absolute top-0 left-0 h-[480px] w-full overflow-hidden bg-brand lg:h-full lg:w-[49%]">
-        <Image
-          src={hero.backgroundShape}
-          alt=""
-          fill
-          priority
-          sizes="(min-width: 992px) 49vw, 100vw"
-          className="pointer-events-none object-cover"
-        />
-      </div>
+      {/* Flat panel — the template's "BG Image Wrapper" without the image.
+          Advocacy's decorative arc sat here (white at 12% alpha, which read as
+          a soft curve over its green). Against the black palette the same
+          overlay turned into visible grey blobs, so the panel is left plain. */}
+      <div className="absolute top-0 left-0 h-[480px] w-full bg-brand lg:h-full lg:w-[49%]" />
 
       {/* Banner photo — the template's "Hero Banner Wrapper". Runs to the very
           top so it passes behind the fixed nav, as it does on the original. */}

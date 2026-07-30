@@ -71,8 +71,10 @@ export const hero = {
      applied as object-position in the component. From the template's bundled
      photography — see README. */
   image: "/images/stock/uYK7LEfTSMXgq76tSSgRQqLNHw.jpg",
-  /* Advocacy's "BG Image Wrapper" — a transparent 1420x1610 overlay that sits
-     behind the whole hero, giving the panel its soft arc. */
+  /* NO LONGER RENDERED. Advocacy's "BG Image Wrapper" — a 1420x1610 overlay of
+     white at 12% alpha that gave its green panel a soft arc. Over the black
+     palette the same overlay read as grey blobs, so the hero panel is flat now.
+     Kept only so the asset is still identified if the arc is ever wanted back. */
   backgroundShape: "/images/stock/iHS2dO88UwPR9MVEtgoa5JPI.webp",
 } as const;
 
