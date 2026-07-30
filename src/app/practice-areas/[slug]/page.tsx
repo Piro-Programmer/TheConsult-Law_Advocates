@@ -4,7 +4,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import BookCta from "@/components/BookCta";
 import Reveal from "@/components/Reveal";
-import { getPracticeArea, practiceAreas } from "@/lib/practice-areas";
+import { getPracticeArea, practiceAreas, topicSlug } from "@/lib/practice-areas";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -38,7 +38,11 @@ export default async function PracticeAreaPage({ params }: Params) {
           <ol className="max-w-4xl">
             {area.topics.map((topic, i) => (
               <Reveal key={topic.title} delay={i * 0.06}>
-                <li className="grid gap-4 border-b border-ink/10 py-9 first:pt-0 last:border-0 md:grid-cols-12 md:gap-10">
+                {/* scroll-mt clears the fixed nav when arrived at by anchor */}
+                <li
+                  id={topicSlug(topic.title)}
+                  className="grid scroll-mt-28 gap-4 border-b border-ink/10 py-9 first:pt-0 last:border-0 md:grid-cols-12 md:gap-10"
+                >
                   <span className="font-display text-sm tabular-nums text-brand/50 md:col-span-1">
                     {topic.number}
                   </span>

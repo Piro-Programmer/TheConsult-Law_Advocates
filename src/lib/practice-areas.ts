@@ -149,3 +149,16 @@ export const practiceAreas: PracticeArea[] = [
 export function getPracticeArea(slug: string) {
   return practiceAreas.find((a) => a.slug === slug);
 }
+
+/**
+ * Topics are sections of their practice area's page, not routes of their own,
+ * so the nav menu deep-links to them by anchor. Shared with the detail page so
+ * the id it renders and the href the menu builds can never drift apart.
+ */
+export function topicSlug(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
